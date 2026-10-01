@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>شاليه الواحة | ليلتك المثالية تبدأ هنا</title>
+<meta name="description" content="شاليه فاخر بمسبح خاص وجلسات خارجية. احجز مباشرة عبر الواتساب بأفضل سعر وبدون عمولات.">
+<meta name="theme-color" content="#0b1026">
+<meta property="og:type" content="website">
+<meta property="og:title" content="نموذج موقع شاليهكم">
+<meta property="og:description" content="نموذج تجريبي لموقع شاليه مع حجز مباشر بدون عمولات. اضغطوا للمعاينة.">
+<meta property="og:site_name" content="Sayid Studio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0b1026;
+    --night-2: #141a3a;
+    --ink: #0f1430;
+    --sand: #f6efe4;
+    --gold: #f4b860;
+    --gold-2: #ffd89a;
+    --teal: #2bd4c4;
+    --teal-2: #13a5a0;
+    --muted: #8b8fa8;
+    --line: rgba(15, 20, 48, .08);
+    --radius: 26px;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { font-family: "IBM Plex Sans Arabic", system-ui, sans-serif; background: var(--sand); color: var(--ink); line-height: 1.85; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  svg { display: block; }
+  .wrap { width: min(1180px, 100% - 40px); margin-inline: auto; }
+  h1, h2, h3 { font-family: Alexandria, sans-serif; line-height: 1.25; }
+
+  .ribbon { background: #070a1c; color: var(--gold-2); font-size: .78rem; text-align: center; padding: 7px 14px; }
+  .ribbon b { color: #fff; font-weight: 600; }
+
+  /* ---------- nav ---------- */
+  .nav { position: absolute; inset-inline: 0; top: 34px; z-index: 30; }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; font-family: Alexandria; font-weight: 800; font-size: 1.12rem; }
+  .brand-mark { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, var(--gold), #e0864a); color: var(--night); box-shadow: 0 8px 26px rgba(244, 184, 96, .35); }
+  .brand-mark svg { width: 22px; height: 22px; }
+  .links { display: flex; gap: 28px; color: rgba(255,255,255,.75); font-size: .95rem; }
+  .links a:hover { color: #fff; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 26px; border-radius: 999px; font-weight: 600; font-size: .98rem; border: 0; cursor: pointer; font-family: inherit; transition: transform .35s var(--ease), box-shadow .35s var(--ease); white-space: nowrap; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.gold { background: linear-gradient(135deg, var(--gold-2), var(--gold)); color: var(--night); box-shadow: 0 12px 30px rgba(244, 184, 96, .35); }
+  .btn.glass { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(10px); }
+  .btn.wa { background: #25d366; color: #fff; box-shadow: 0 12px 30px rgba(37,211,102,.35); }
+  .btn svg { width: 20px; height: 20px; }
+  .nav .btn { padding: 11px 20px; font-size: .9rem; }
+
+  /* ---------- hero scene ---------- */
+  .hero { position: relative; min-height: 100svh; overflow: hidden; background: #070a1c; color: #fff; isolation: isolate; }
+  .scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+  .layer { will-change: transform; transition: transform .6s var(--ease); }
+  .star { animation: twinkle var(--d, 3s) ease-in-out var(--delay, 0s) infinite; }
+  .moon-glow { animation: breathe 6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+  .window { animation: flicker 5s ease-in-out infinite; }
+  .window:nth-of-type(2n) { animation-delay: -1.7s; }
+  .window:nth-of-type(3n) { animation-delay: -3.1s; }
+  .ripple { stroke-dasharray: 60 140; animation: ripple 5s linear infinite; }
+  .ripple:nth-child(2) { animation-duration: 7s; animation-direction: reverse; }
+  .ripple:nth-child(3) { animation-duration: 6s; }
+  .refl { transform-box: fill-box; transform-origin: center; animation: shimmer 3.2s ease-in-out infinite; }
+  .palm { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 7s ease-in-out infinite; }
+  .palm.b { animation-duration: 9s; animation-delay: -2s; }
+  .lantern { animation: rise var(--d, 14s) linear var(--delay, 0s) infinite; opacity: 0; }
+  .firefly { animation: drift var(--d, 9s) ease-in-out var(--delay, 0s) infinite alternate; }
+  .hero.paused * { animation-play-state: paused !important; }
+
+  .hero-inner { position: relative; z-index: 2; min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 30px; padding: 130px 0 150px; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 10px; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(10px); font-size: .86rem; color: rgba(255,255,255,.85); }
+  .pill .stars { color: var(--gold); letter-spacing: 2px; }
+  .pill b { color: #fff; }
+  .hero h1 { font-size: clamp(2.4rem, 6vw, 4.8rem); font-weight: 800; margin: 22px 0 16px; text-shadow: 0 10px 40px rgba(0,0,0,.35); }
+  .hero h1 .l { display: block; overflow: hidden; }
+  .hero h1 .l > span { display: inline-block; transform: translateY(110%); animation: up 1.1s var(--ease) forwards; }
+  .hero h1 .l:nth-child(2) > span { animation-delay: .14s; background: linear-gradient(90deg, var(--gold-2), var(--gold), #ff9e6b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .lead { color: rgba(255,255,255,.78); font-size: clamp(1rem, 1.6vw, 1.18rem); max-width: 520px; opacity: 0; animation: fade 1s .45s forwards; }
+  .hero .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; opacity: 0; animation: fade 1s .6s forwards; }
+
+  /* booking bar (overlaps the bottom of the hero) */
+  .book-wrap { position: relative; z-index: 6; margin-top: -78px; }
+  .book {
+    display: grid; grid-template-columns: 200px 1fr 230px; gap: 18px; align-items: center;
+    background: rgba(14, 19, 46, .9); color: #fff; border: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border-radius: 26px; padding: 18px 20px; box-shadow: 0 30px 70px rgba(11,16,38,.35);
+  }
+  .book h3 { font-size: 1.15rem; }
+  .book p.s { color: rgba(255,255,255,.62); font-size: .8rem; line-height: 1.6; }
+  .fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .field, .field input, .field select { min-width: 0; }
+  .field { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 9px 14px; transition: border-color .3s; }
+  .field:focus-within { border-color: var(--gold); }
+  .field label { display: block; font-size: .72rem; color: rgba(255,255,255,.6); }
+  .field input, .field select { width: 100%; background: transparent; border: 0; color: #fff; font: inherit; font-size: .95rem; font-weight: 500; outline: none; color-scheme: dark; }
+  .field select option { color: var(--ink); }
+  .bact .btn { width: 100%; }
+  .summary { display: flex; justify-content: space-between; font-size: .78rem; color: rgba(255,255,255,.65); margin-top: 8px; padding: 0 4px; }
+  .summary b { color: var(--gold-2); }
+  .summary .perk::before { content: "✓ "; color: var(--teal); }
+
+  /* ---------- sections ---------- */
+  section { padding: clamp(70px, 10vw, 120px) 0; }
+  .kicker { color: #c9852f; font-weight: 600; font-size: .9rem; display: inline-flex; align-items: center; gap: 10px; }
+  .kicker::before { content: ""; width: 28px; height: 2px; background: currentColor; border-radius: 2px; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 46px; }
+  .head h2 { font-size: clamp(1.9rem, 4.4vw, 3.1rem); font-weight: 800; margin-top: 10px; max-width: 620px; }
+  .head p { color: var(--muted); max-width: 380px; }
+
+  .direct { margin-top: 34px; position: relative; z-index: 5; }
+  .direct .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .direct .it { background: #fff; border-radius: 22px; padding: 22px 24px; display: flex; gap: 16px; align-items: center; box-shadow: 0 20px 50px rgba(15,20,48,.08); }
+  .direct .ic { width: 52px; height: 52px; flex: none; border-radius: 16px; display: grid; place-items: center; background: #fff4e3; }
+  .direct .ic svg { width: 26px; height: 26px; }
+  .direct b { display: block; font-family: Alexandria; }
+  .direct small { color: var(--muted); }
+
+  .amen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .am { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 22px; transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
+  .am:hover { transform: translateY(-6px); box-shadow: 0 26px 50px rgba(15,20,48,.1); }
+  .am .ic { width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: linear-gradient(135deg, #e9fbf9, #d3f5f1); margin-bottom: 16px; }
+  .am .ic svg { width: 28px; height: 28px; }
+  .am:hover .ic svg { animation: pop .6s var(--ease); }
+  .am h3 { font-size: 1.08rem; }
+  .am p { color: var(--muted); font-size: .9rem; }
+
+  .gallery { display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 230px 230px; gap: 16px; }
+  .ph { position: relative; border-radius: var(--radius); overflow: hidden; color: #fff; display: flex; align-items: end; padding: 20px; font-weight: 600; isolation: isolate; }
+  .ph:first-child { grid-row: span 2; }
+  .ph::before { content: ""; position: absolute; inset: 0; z-index: -1; transition: transform 1.2s var(--ease); }
+  .ph:hover::before { transform: scale(1.08); }
+  .ph.a::before { background: radial-gradient(circle at 70% 20%, #ffd89a 0 8%, transparent 9%), linear-gradient(180deg, #1b2350 0%, #3a2f5e 45%, #13a5a0 46%, #2bd4c4 100%); }
+  .ph.b::before { background: linear-gradient(160deg, #f4b860, #e0864a 60%, #8a4b2f); }
+  .ph.c::before { background: linear-gradient(200deg, #2bd4c4, #13a5a0 55%, #0b5a63); }
+  .ph.d::before { background: linear-gradient(140deg, #3a2f5e, #141a3a); }
+  .ph.e::before { background: linear-gradient(180deg, #9fd8a3, #3f8f5a); }
+  .ph span { background: rgba(0,0,0,.25); backdrop-filter: blur(6px); padding: 6px 14px; border-radius: 99px; font-size: .88rem; }
+  .ph .tag { position: absolute; top: 16px; right: 16px; font-size: .72rem; font-weight: 500; background: rgba(255,255,255,.2); }
+  .ph svg.deco { position: absolute; inset: auto -10px -10px auto; width: 140px; height: 140px; opacity: .25; }
+
+  .prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .price { background: #fff; border-radius: var(--radius); padding: 30px; border: 1px solid var(--line); position: relative; overflow: hidden; }
+  .price.hot { background: var(--night); color: #fff; border-color: transparent; transform: scale(1.03); }
+  .price .badge { position: absolute; top: 18px; left: 18px; background: var(--gold); color: var(--night); font-size: .75rem; font-weight: 700; padding: 4px 12px; border-radius: 99px; }
+  .price h3 { font-size: 1.1rem; }
+  .price .amt { font-family: Alexandria; font-size: 2.6rem; font-weight: 800; margin: 10px 0; }
+  .price .amt small { font-size: .95rem; font-weight: 400; opacity: .7; }
+  .price ul { list-style: none; display: grid; gap: 6px; font-size: .92rem; color: var(--muted); margin-bottom: 20px; }
+  .price.hot ul { color: rgba(255,255,255,.7); }
+  .price li::before { content: "✓"; color: var(--teal); margin-inline-end: 8px; }
+  .price .btn { width: 100%; }
+  .note { text-align: center; color: var(--muted); font-size: .78rem; margin-top: 16px; }
+
+  .stats { background: linear-gradient(160deg, var(--night), #1b2350); color: #fff; border-radius: 36px; padding: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; overflow: hidden; }
+  .stats::after { content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(244,184,96,.3), transparent 65%); top: -200px; left: -100px; }
+  .stat { text-align: center; position: relative; z-index: 1; }
+  .stat strong { display: block; font-family: Alexandria; font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; color: var(--gold-2); line-height: 1.2; }
+  .stat span { color: rgba(255,255,255,.65); font-size: .9rem; }
+
+  .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .q { background: #fff; border-radius: var(--radius); padding: 28px; border: 1px solid var(--line); }
+  .q .stars { color: #e8a93a; letter-spacing: 3px; }
+  .q p { margin: 12px 0 16px; }
+  .q small { color: var(--muted); }
+
+  .cta { position: relative; overflow: hidden; border-radius: 40px; color: #fff; padding: clamp(50px, 8vw, 90px) clamp(24px, 6vw, 80px); background: radial-gradient(100% 120% at 0% 100%, #2bd4c444 0, transparent 50%), linear-gradient(160deg, #141a3a, #0b1026); display: grid; grid-template-columns: 1.2fr .8fr; gap: 30px; align-items: center; }
+  .cta h2 { font-size: clamp(2rem, 4.6vw, 3.2rem); font-weight: 800; }
+  .cta p { color: rgba(255,255,255,.72); margin: 12px 0 26px; }
+  .info { display: grid; gap: 12px; }
+  .info div { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 18px; padding: 14px 18px; display: flex; gap: 14px; align-items: center; }
+  .info .i { width: 42px; height: 42px; flex: none; border-radius: 13px; background: var(--gold); color: var(--night); display: grid; place-items: center; }
+  .info .i svg { width: 20px; height: 20px; }
+  .info small { display: block; color: rgba(255,255,255,.6); font-size: .78rem; }
+  footer { padding: 36px 0 110px; text-align: center; color: var(--muted); font-size: .88rem; }
+  footer a { color: #c9852f; font-weight: 600; }
+
+  .mobile-bar { display: none; }
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @keyframes up { to { transform: translateY(0); } }
+  @keyframes fade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+  @keyframes breathe { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: .85; transform: scale(1.08); } }
+  @keyframes flicker { 0%, 100% { opacity: 1; } 45% { opacity: .82; } 50% { opacity: .95; } 70% { opacity: .88; } }
+  @keyframes ripple { to { stroke-dashoffset: -400; } }
+  @keyframes shimmer { 0%, 100% { opacity: .35; transform: scaleX(1); } 50% { opacity: .6; transform: scaleX(1.06); } }
+  @keyframes sway { 0%, 100% { transform: rotate(-2.2deg); } 50% { transform: rotate(2.2deg); } }
+  @keyframes rise { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: .95; } 80% { opacity: .7; } 100% { transform: translate(var(--dx, 30px), -620px); opacity: 0; } }
+  @keyframes drift { 0% { transform: translate(0, 0); opacity: .2; } 50% { opacity: 1; } 100% { transform: translate(var(--dx, 40px), var(--dy, -30px)); opacity: .3; } }
+  @keyframes wheel { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
+  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.25) rotate(-8deg); } 100% { transform: scale(1); } }
+
+  @media (max-width: 1100px) {
+    .book { grid-template-columns: 1fr 1fr; }
+    .book .fields { grid-column: 1 / -1; grid-row: 2; }
+  }
+  @media (max-width: 980px) {
+    .amen { grid-template-columns: repeat(2, 1fr); }
+    .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 160px 160px; }
+    .ph:first-child { grid-column: span 2; grid-row: auto; }
+    .prices, .quotes { grid-template-columns: 1fr; }
+    .price.hot { transform: none; }
+    .stats { grid-template-columns: repeat(2, 1fr); row-gap: 30px; }
+    .cta { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .links, .nav .btn { display: none; }
+    .ribbon { font-size: .7rem; line-height: 1.6; }
+    .nav { top: 46px; }
+    .nav .wrap { justify-content: center; height: 64px; }
+    .hero { min-height: 0; }
+    .hero-inner { grid-template-columns: 1fr; min-height: 0; padding: 100px 0 300px; text-align: center; gap: 24px; align-content: start; }
+    .hero .row .btn { flex: 1 1 0; padding: 14px 10px; }
+    .hero .lead { margin-inline: auto; }
+    .hero .row { justify-content: center; }
+    .book-wrap { margin-top: -40px; }
+    .book { grid-template-columns: minmax(0, 1fr); padding: 20px; gap: 14px; }
+    .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .direct { margin-top: 24px; }
+    .direct .grid { grid-template-columns: 1fr; }
+    .amen { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .am { padding: 20px 16px; }
+    .stats { border-radius: 28px; }
+    .cta { border-radius: 30px; text-align: center; }
+    .cta .btn { width: 100%; }
+    .info div { text-align: right; }
+    .mobile-bar { display: flex; gap: 10px; position: fixed; z-index: 60; inset-inline: 12px; bottom: max(12px, env(safe-area-inset-bottom)); padding: 8px; border-radius: 22px; background: rgba(11,16,38,.92); backdrop-filter: blur(12px); box-shadow: 0 16px 40px rgba(0,0,0,.3); }
+    .mobile-bar a { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px; border-radius: 16px; font-weight: 600; color: #fff; font-size: .95rem; }
+    .mobile-bar .wa { background: #25d366; }
+    .mobile-bar .call { background: rgba(255,255,255,.1); flex: .55; }
+    .mobile-bar svg { width: 20px; height: 20px; fill: currentColor; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ribbon">✦ نموذج تجريبي أولي من <b>Sayid Studio</b> · الموقع النهائي يُصمم بهوية <b data-f="name">شاليه الواحة</b> وصوره وأسعاره</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg></span><span data-f="name">شاليه الواحة</span></a>
+    <div class="links"><a href="#amenities">المرافق</a><a href="#gallery">الصور</a><a href="#prices">الأسعار</a><a href="#visit">الموقع</a></div>
+    <a class="btn gold" href="#book">احجز الآن</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="scene" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#070a1c"/><stop offset=".45" stop-color="#141a3a"/><stop offset=".72" stop-color="#3a2f5e"/><stop offset=".9" stop-color="#b8664f"/><stop offset="1" stop-color="#e59a62"/>
+      </linearGradient>
+      <radialGradient id="moonGlow"><stop offset="0" stop-color="#ffe9b8" stop-opacity=".55"/><stop offset="1" stop-color="#ffe9b8" stop-opacity="0"/></radialGradient>
+      <linearGradient id="dune1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4b3260"/><stop offset="1" stop-color="#2a1f45"/></linearGradient>
+      <linearGradient id="dune2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2148"/><stop offset="1" stop-color="#181434"/></linearGradient>
+      <linearGradient id="dune3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17132e"/><stop offset="1" stop-color="#0b0a1c"/></linearGradient>
+      <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd89a"/><stop offset="1" stop-color="#f08a4b"/></linearGradient>
+      <linearGradient id="pool" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2bd4c4"/><stop offset="1" stop-color="#0d6f73"/></linearGradient>
+      <radialGradient id="lamp"><stop offset="0" stop-color="#ffe2a8"/><stop offset=".45" stop-color="#ffb35c" stop-opacity=".8"/><stop offset="1" stop-color="#ff8a3d" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#sky)"/>
+    <g id="stars" class="layer" data-depth="6"></g>
+    <g class="layer" data-depth="10"><g id="moon">
+      <circle class="moon-glow" cx="260" cy="190" r="150" fill="url(#moonGlow)"/>
+      <circle cx="260" cy="190" r="46" fill="#fff3d6"/>
+      <circle cx="280" cy="176" r="42" fill="#141a3a"/>
+    </g></g>
+    <g id="lanterns"></g>
+    <path class="layer" data-depth="14" d="M0 640 C 220 560 380 600 560 610 S 900 540 1100 580 S 1340 600 1440 570 V900 H0Z" fill="url(#dune1)"/>
+    <path class="layer" data-depth="22" d="M0 700 C 180 650 360 690 560 680 S 980 620 1180 660 S 1380 690 1440 670 V900 H0Z" fill="url(#dune2)"/>
+    <g class="layer" data-depth="30">
+      <!-- chalet -->
+      <g transform="translate(150 470)">
+        <rect x="-40" y="190" width="620" height="16" rx="4" fill="#0e0c22"/>
+        <rect x="0" y="40" width="540" height="150" rx="6" fill="#1d1a3c"/>
+        <rect x="-20" y="22" width="580" height="22" rx="6" fill="#2a2550"/>
+        <rect x="320" y="-28" width="240" height="70" rx="6" fill="#221e46"/>
+        <rect x="306" y="-44" width="268" height="18" rx="6" fill="#2f2a5a"/>
+        <rect class="window" x="24" y="62" width="120" height="110" rx="4" fill="url(#glass)"/>
+        <rect class="window" x="158" y="62" width="120" height="110" rx="4" fill="url(#glass)"/>
+        <rect class="window" x="340" y="-12" width="96" height="44" rx="3" fill="url(#glass)"/>
+        <rect class="window" x="446" y="-12" width="96" height="44" rx="3" fill="url(#glass)"/>
+        <rect x="300" y="72" width="70" height="118" rx="4" fill="#120f2a"/>
+        <rect class="window" x="388" y="62" width="130" height="110" rx="4" fill="url(#glass)" opacity=".9"/>
+        <g stroke="#3a3468" stroke-width="3"><line x1="84" y1="62" x2="84" y2="172"/><line x1="218" y1="62" x2="218" y2="172"/><line x1="453" y1="62" x2="453" y2="172"/></g>
+        <circle cx="-10" cy="150" r="34" fill="url(#lamp)" class="window"/>
+        <circle cx="560" cy="150" r="34" fill="url(#lamp)" class="window"/>
+      </g>
+      <!-- pool -->
+      <g transform="translate(230 692)">
+        <rect x="0" y="0" width="460" height="74" rx="18" fill="#0e0c22"/>
+        <rect x="8" y="6" width="444" height="62" rx="14" fill="url(#pool)"/>
+        <rect class="refl" x="60" y="16" width="70" height="10" rx="5" fill="#ffd89a" opacity=".4"/>
+        <rect class="refl" x="190" y="30" width="80" height="9" rx="5" fill="#ffd89a" opacity=".35" style="animation-delay:-1s"/>
+        <rect class="refl" x="320" y="18" width="70" height="10" rx="5" fill="#ffd89a" opacity=".4" style="animation-delay:-2s"/>
+        <g fill="none" stroke="#c9fffa" stroke-width="2" stroke-linecap="round" opacity=".7">
+          <path class="ripple" d="M30 24 Q 120 16 220 24 T 430 24"/>
+          <path class="ripple" d="M20 42 Q 130 34 240 42 T 440 42"/>
+          <path class="ripple" d="M40 58 Q 140 52 250 58 T 420 58"/>
+        </g>
+      </g>
+    </g>
+    <!-- palms -->
+    <g class="layer" data-depth="38">
+      <g transform="translate(1060 560)"><g class="palm">
+        <path d="M30 330 C 26 240 18 160 40 60" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <g fill="#0f2a2a">
+          <path d="M40 60 C 0 40 -60 50 -100 90 C -50 70 0 72 40 66Z"/>
+          <path d="M40 60 C 80 30 150 40 190 80 C 140 64 90 64 40 66Z"/>
+          <path d="M40 60 C 20 10 -20 -20 -70 -20 C -20 0 10 30 40 62Z"/>
+          <path d="M40 60 C 60 0 110 -30 160 -26 C 110 -6 70 26 40 62Z"/>
+          <path d="M40 60 C 40 20 50 -30 70 -60 C 64 -20 56 20 42 62Z"/>
+        </g>
+      </g></g>
+      <g transform="translate(1200 620) scale(.75)"><g class="palm b">
+        <path d="M30 330 C 26 240 18 160 40 60" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <g fill="#0c2424">
+          <path d="M40 60 C 0 40 -60 50 -100 90 C -50 70 0 72 40 66Z"/>
+          <path d="M40 60 C 80 30 150 40 190 80 C 140 64 90 64 40 66Z"/>
+          <path d="M40 60 C 20 10 -20 -20 -70 -20 C -20 0 10 30 40 62Z"/>
+          <path d="M40 60 C 60 0 110 -30 160 -26 C 110 -6 70 26 40 62Z"/>
+        </g>
+      </g></g>
+      <g transform="translate(70 600) scale(.85)"><g class="palm" style="animation-delay:-3s">
+        <path d="M30 330 C 26 240 18 160 40 60" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <g fill="#0c2424">
+          <path d="M40 60 C 0 40 -60 50 -100 90 C -50 70 0 72 40 66Z"/>
+          <path d="M40 60 C 80 30 150 40 190 80 C 140 64 90 64 40 66Z"/>
+          <path d="M40 60 C 20 10 -20 -20 -70 -20 C -20 0 10 30 40 62Z"/>
+          <path d="M40 60 C 60 0 110 -30 160 -26 C 110 -6 70 26 40 62Z"/>
+        </g>
+      </g></g>
+    </g>
+    <path d="M0 820 C 300 790 600 810 900 800 S 1300 790 1440 805 V900 H0Z" fill="url(#dune3)"/>
+    <g id="fireflies"></g>
+  </svg>
+
+  <div class="wrap hero-inner">
+    <div>
+      <span class="pill"><span class="stars">★★★★★</span><span><b data-f="rating">4.8</b> من <b data-f="reviews">900</b>+ تقييم على قوقل</span></span>
+      <h1><span class="l"><span>ليلتك المثالية</span></span><span class="l"><span>تبدأ هنا.</span></span></h1>
+      <p class="lead">مسبح خاص، جلسات خارجية دافئة، وخصوصية تامة لك ولعائلتك في <b data-f="name">شاليه الواحة</b> في <span data-f="city">مدينتك</span>. احجز مباشرة بأفضل سعر وبدون عمولات.</p>
+      <div class="row">
+        <a class="btn gold" href="#book">تحقق من التوفر</a>
+        <a class="btn glass" href="#gallery">شاهد الشاليه</a>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<div class="wrap book-wrap">
+  <form class="book" id="book" onsubmit="return false">
+    <div class="bhead"><h3>احجز إقامتك</h3><p class="s">اختر التاريخ وعدد الضيوف، ويصل طلبك مباشرة للواتساب</p></div>
+    <div class="fields">
+      <div class="field"><label for="in">تاريخ الوصول</label><input type="date" id="in"></div>
+      <div class="field"><label for="out">تاريخ المغادرة</label><input type="date" id="out"></div>
+      <div class="field"><label for="guests">عدد الضيوف</label>
+        <select id="guests"><option>1 - 5</option><option selected>6 - 10</option><option>11 - 20</option><option>أكثر من 20</option></select></div>
+      <div class="field"><label for="type">نوع الحجز</label>
+        <select id="type"><option>عائلي</option><option>مناسبة</option><option>شباب</option></select></div>
+    </div>
+    <div class="bact">
+      <a class="btn wa" id="bookBtn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+        أرسل طلب الحجز
+      </a>
+      <div class="summary"><span>مدة الإقامة: <b id="nights">ليلة واحدة</b></span><span class="perk">بدون عمولات</span></div>
+    </div>
+  </form>
+</div>
+
+<section class="direct" style="padding:0">
+  <div class="wrap grid">
+    <div class="it reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#c9852f" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span><b>بدون عمولات</b><small>سعر أقل من منصات الحجز</small></span></div>
+    <div class="it reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#c9852f" stroke-width="2" stroke-linecap="round"><path d="M13 2 4 14h7l-1 8 9-12h-7Z"/></svg></span><span><b>تأكيد فوري</b><small>رد مباشر من المالك</small></span></div>
+    <div class="it reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#c9852f" stroke-width="2" stroke-linecap="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><span><b>خصوصية تامة</b><small>مداخل وأسوار خاصة</small></span></div>
+  </div>
+</section>
+
+<section id="amenities">
+  <div class="wrap">
+    <div class="head reveal"><div><span class="kicker">المرافق</span><h2>كل ما تحتاجه لإقامة لا تُنسى</h2></div><p>مساحات واسعة ومرافق متكاملة تناسب العائلات والمناسبات والسهرات.</p></div>
+    <div class="amen">
+      <div class="am reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#13a5a0" stroke-width="2" stroke-linecap="round"><path d="M2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5"/><path d="M8 15V5a2 2 0 0 1 4 0M16 15V5a2 2 0 0 0-4 0M8 9h8"/></svg></span><h3>مسبح خاص</h3><p>مسبح مع إضاءة ليلية وتدفئة في الشتاء.</p></div>
+      <div class="am reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#13a5a0" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V10h14v11M9 10V6a3 3 0 0 1 6 0v4"/></svg></span><h3>جلسات خارجية</h3><p>مجلس خارجي وجلسات أرضية ونار للسهر.</p></div>
+      <div class="am reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#13a5a0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="10" r="6"/><path d="M8 20l2-4M16 20l-2-4M6 10h12"/></svg></span><h3>منطقة شواء</h3><p>شواية مجهزة ومطبخ خارجي متكامل.</p></div>
+      <div class="am reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#13a5a0" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M8 21h8"/></svg></span><h3>شاشة وسينما</h3><p>شاشة كبيرة ونظام صوت للسهرات.</p></div>
+      <div class="am reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#13a5a0" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v6M8 21l4-8 4 8M7 11h10"/></svg></span><h3>ألعاب أطفال</h3><p>منطقة ألعاب آمنة ونطيطة للأطفال.</p></div>
+      <div class="am reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#13a5a0" stroke-width="2" stroke-linecap="round"><path d="M3 10h18M5 10V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3M4 10v8M20 10v8M4 15h16"/></svg></span><h3>غرف مريحة</h3><p>غرف نوم مجهزة ومكيفة بالكامل.</p></div>
+      <div class="am reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#13a5a0" stroke-width="2" stroke-linecap="round"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1"/></svg></span><h3>إنترنت سريع</h3><p>واي فاي في كل أرجاء الشاليه.</p></div>
+      <div class="am reveal"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#13a5a0" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="6" rx="2"/><path d="M5 11l2-4h10l2 4M7 17v2M17 17v2"/></svg></span><h3>مواقف خاصة</h3><p>مواقف داخلية تتسع لعدة سيارات.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><div><span class="kicker">الصور</span><h2>لمحة من أجواء الشاليه</h2></div><p>في الموقع النهائي تظهر هنا صوركم الحقيقية بجودة عالية.</p></div>
+    <div class="gallery">
+      <div class="ph a reveal"><span class="tag">صورة توضيحية</span><span>المسبح ليلاً</span></div>
+      <div class="ph b reveal"><span class="tag">صورة توضيحية</span><span>الجلسات الخارجية</span></div>
+      <div class="ph c reveal"><span class="tag">صورة توضيحية</span><span>المسبح نهاراً</span></div>
+      <div class="ph d reveal"><span class="tag">صورة توضيحية</span><span>المجلس الداخلي</span></div>
+      <div class="ph e reveal"><span class="tag">صورة توضيحية</span><span>الحديقة</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="prices" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><div><span class="kicker">الأسعار</span><h2>أسعار واضحة بدون مفاجآت</h2></div><p>احجز مباشرة ووفّر عمولات المنصات.</p></div>
+    <div class="prices">
+      <div class="price reveal"><h3>أيام الأسبوع</h3><div class="amt">650 <small>ر.س / ليلة</small></div><ul><li>من الأحد إلى الأربعاء</li><li>دخول 4 العصر</li><li>خروج 12 الظهر</li></ul><a class="btn gold" href="#book">احجز</a></div>
+      <div class="price hot reveal"><span class="badge">الأكثر طلباً</span><h3>نهاية الأسبوع</h3><div class="amt">950 <small>ر.س / ليلة</small></div><ul><li>الخميس والجمعة</li><li>تجهيز المسبح والإضاءة</li><li>أولوية في الحجز</li></ul><a class="btn gold" href="#book">احجز</a></div>
+      <div class="price reveal"><h3>المناسبات</h3><div class="amt">حسب الطلب</div><ul><li>تخرج، زواج، تجمعات</li><li>تنسيق وضيافة</li><li>عدد ضيوف أكبر</li></ul><a class="btn gold" href="#book">اطلب عرض سعر</a></div>
+    </div>
+    <p class="note">* أسعار توضيحية في النموذج، وتُستبدل بأسعاركم الفعلية.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><strong data-count data-f="rating">4.8</strong><span>تقييم على قوقل</span></div>
+      <div class="stat"><strong data-count data-f="reviews">900</strong><span>تقييم من الضيوف</span></div>
+      <div class="stat"><strong data-count>24</strong><span>ساعة لخدمتكم</span></div>
+      <div class="stat"><strong data-count>100</strong><span>٪ خصوصية</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><div><span class="kicker">آراء الضيوف</span><h2>تجارب نعتز بها</h2></div><p>أكثر من <b data-f="reviews">900</b> تقييم على قوقل بمعدل <b data-f="rating">4.8</b>.</p></div>
+    <div class="quotes">
+      <div class="q reveal"><div class="stars">★★★★★</div><p>"المكان نظيف وهادئ والمسبح ممتاز، الأطفال استمتعوا كثير."</p><small>ضيف من <span data-f="city">المدينة</span></small></div>
+      <div class="q reveal"><div class="stars">★★★★★</div><p>"حجزنا للعائلة، الجلسات الخارجية في الليل خيال. أكيد بنرجع."</p><small>حجز عائلي</small></div>
+      <div class="q reveal"><div class="stars">★★★★★</div><p>"تعامل راقي والحجز عن طريق الواتساب سهل وسريع."</p><small>ضيف دائم</small></div>
+    </div>
+    <p class="note">* آراء توضيحية في النموذج، وتُستبدل بتقييماتكم الحقيقية.</p>
+  </div>
+</section>
+
+<section id="visit" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div><span class="kicker" style="color:var(--gold)">احجز الآن</span><h2>ليلتك القادمة بانتظارك</h2><p>تواصل معنا مباشرة واحصل على أفضل سعر بدون عمولات المنصات.</p>
+        <a class="btn wa" data-wa href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>تواصل عبر الواتساب</a></div>
+      <div class="info">
+        <div><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><small>الموقع</small><b data-f="city">المدينة</b></span></div>
+        <div><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><span><small>الهاتف والواتساب</small><b dir="ltr" data-f="phone">+966 5X XXX XXXX</b></span></div>
+        <div><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><small>الدخول والخروج</small><b>دخول 4 العصر · خروج 12 الظهر</b></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="yr"></span> <span data-f="name">شاليه الواحة</span> · صُمم بواسطة <a href="https://sayidstudio.github.io/">Sayid Studio</a></footer>
+
+<div class="mobile-bar">
+  <a class="wa" href="#book"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>احجز الآن</a>
+  <a class="call" data-call href="#"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>اتصال</a>
+</div>
+
+<script>
+/* ---------- personalisation from the link ----------
+   ?n=name &c=city &r=rating &v=reviews &w=9665XXXXXXXX  — short links (/s/12/) set window.PRESET instead. */
+(() => {
+  const url = new URLSearchParams(location.search), pre = window.PRESET || {};
+  const q = { get: k => pre[k] ?? url.get(k) };
+  const name = q.get('n') || 'شاليه الواحة';
+  const city = q.get('c') || 'مدينتك';
+  const rating = q.get('r') || '4.8';
+  const reviews = q.get('v') ? Number(q.get('v')).toLocaleString('en-US') : '900';
+  const wa = (q.get('w') || '').replace(/\D/g, '');
+  const phone = wa ? '+' + wa.replace(/^(\d{3})(\d{2})(\d{3})(\d+)$/, '$1 $2 $3 $4') : '+966 5X XXX XXXX';
+  const vals = { name, city, rating, reviews, phone };
+  document.querySelectorAll('[data-f]').forEach(el => { el.textContent = vals[el.dataset.f]; });
+  document.title = `${name} | ليلتك المثالية تبدأ هنا`;
+  const waLink = text => `https://wa.me/${wa}?text=${encodeURIComponent(text)}`;
+  document.querySelectorAll('[data-wa]').forEach(a => { a.href = waLink(`السلام عليكم، أرغب بالاستفسار عن حجز ${name}`); a.target = '_blank'; a.rel = 'noopener'; });
+  document.querySelectorAll('[data-call]').forEach(a => { a.href = wa ? `tel:+${wa}` : '#visit'; });
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* booking form -> WhatsApp request */
+  const $ = id => document.getElementById(id);
+  const iso = d => d.toISOString().slice(0, 10);
+  const today = new Date(); const tmr = new Date(Date.now() + 864e5);
+  $('in').value = iso(today); $('in').min = iso(today);
+  $('out').value = iso(tmr); $('out').min = iso(tmr);
+  const fmt = s => new Date(s + 'T00:00').toLocaleDateString('ar-SA-u-ca-gregory', { weekday: 'long', day: 'numeric', month: 'long' });
+  function update() {
+    const a = new Date($('in').value), b = new Date($('out').value);
+    if (b <= a) { const n = new Date(a.getTime() + 864e5); $('out').value = iso(n); }
+    $('out').min = iso(new Date(new Date($('in').value).getTime() + 864e5));
+    const nights = Math.max(1, Math.round((new Date($('out').value) - new Date($('in').value)) / 864e5));
+    $('nights').textContent = nights === 1 ? 'ليلة واحدة' : nights === 2 ? 'ليلتان' : `${nights} ليالٍ`;
+    $('bookBtn').href = waLink(`السلام عليكم، أرغب بحجز ${name}\nمن: ${fmt($('in').value)}\nإلى: ${fmt($('out').value)}\nعدد الليالي: ${nights}\nعدد الضيوف: ${$('guests').value}\nنوع الحجز: ${$('type').value}`);
+  }
+  ['in', 'out', 'guests', 'type'].forEach(id => $(id).addEventListener('change', update));
+  update();
+})();
+
+/* ---------- living night scene: stars, lanterns, fireflies, parallax ---------- */
+(() => {
+  const NS = 'http://www.w3.org/2000/svg';
+  const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+  const small = innerWidth < 760;
+  if (small) {   // portrait phones: show the chalet and pool across the full width at the bottom
+    const scene = document.querySelector('.scene');
+    scene.setAttribute('viewBox', '60 330 820 570');
+    scene.setAttribute('preserveAspectRatio', 'xMidYMax meet');
+    document.getElementById('moon').setAttribute('transform', 'translate(500 230)');
+  }
+  const stars = document.getElementById('stars');
+  for (let i = 0; i < (small ? 60 : 110); i++) {
+    const s = mk('circle', { cx: Math.random() * 1440, cy: Math.random() * 520, r: Math.random() * 1.6 + .3, fill: '#fff', class: 'star' });
+    s.style.setProperty('--d', 2 + Math.random() * 4 + 's'); s.style.setProperty('--delay', -Math.random() * 5 + 's');
+    stars.appendChild(s);
+  }
+  const lanterns = document.getElementById('lanterns');
+  for (let i = 0; i < (small ? 6 : 10); i++) {
+    const g = mk('g', { class: 'lantern' });
+    const x = 500 + Math.random() * 900, y = 700 + Math.random() * 80;
+    g.appendChild(mk('ellipse', { cx: x, cy: y, rx: 18, ry: 18, fill: 'url(#lamp)', opacity: .7 }));
+    g.appendChild(mk('rect', { x: x - 5, y: y - 7, width: 10, height: 13, rx: 3, fill: '#ffcf86' }));
+    g.style.setProperty('--d', 12 + Math.random() * 10 + 's'); g.style.setProperty('--delay', -Math.random() * 20 + 's');
+    g.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px');
+    lanterns.appendChild(g);
+  }
+  const flies = document.getElementById('fireflies');
+  for (let i = 0; i < (small ? 10 : 18); i++) {
+    const f = mk('circle', { cx: Math.random() * 1440, cy: 640 + Math.random() * 220, r: 2.2, fill: '#ffe2a8', class: 'firefly' });
+    f.style.setProperty('--d', 5 + Math.random() * 6 + 's'); f.style.setProperty('--delay', -Math.random() * 8 + 's');
+    f.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px'); f.style.setProperty('--dy', (Math.random() * -60) + 'px');
+    flies.appendChild(f);
+  }
+
+  const hero = document.querySelector('.hero');
+  const layers = [...document.querySelectorAll('.scene .layer')];
+  let mx = 0, my = 0, sy = 0, raf = 0;
+  const apply = () => {
+    raf = 0;
+    layers.forEach(l => { const d = +l.dataset.depth; l.style.transform = `translate(${mx * d}px, ${my * d * .5 + sy * d * .02}px)`; });
+  };
+  const queue = () => { if (!raf) raf = requestAnimationFrame(apply); };
+  if (matchMedia('(hover: hover)').matches) addEventListener('pointermove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; queue(); }, { passive: true });
+  addEventListener('scroll', () => { sy = Math.min(scrollY, innerHeight); queue(); }, { passive: true });
+  new IntersectionObserver(([e]) => hero.classList.toggle('paused', !e.isIntersecting)).observe(hero);
+})();
+
+/* ---------- scroll reveal + counters ---------- */
+(() => {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('[data-count]').forEach(el => {
+      const raw = el.textContent.trim(), target = parseFloat(raw.replace(/,/g, ''));
+      if (isNaN(target)) return;
+      const dec = raw.includes('.'), t0 = performance.now();
+      const tick = now => { const p = Math.min(1, (now - t0) / 1500), v = target * (1 - Math.pow(1 - p, 4));
+        el.textContent = dec ? v.toFixed(1) : Math.round(v).toLocaleString('en-US'); if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    });
+    io.unobserve(e.target);
+  }), { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + 'ms'; io.observe(el); });
+})();
+</script>
+</body>
+</html>
