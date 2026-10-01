@@ -199,6 +199,100 @@
   @keyframes wheel { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
   @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.25) rotate(-8deg); } 100% { transform: scale(1); } }
 
+  /* fixed glass nav + progress */
+  .progress { position: fixed; top: 0; inset-inline: 0; height: 3px; z-index: 80; background: linear-gradient(90deg, var(--gold), var(--teal)); transform-origin: right; transform: scaleX(0); }
+  .nav { position: fixed; transition: top .35s var(--ease), background .35s var(--ease), box-shadow .35s; }
+  .nav.scrolled { top: 0; background: rgba(7, 10, 28, .82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+  .nav.scrolled .wrap { height: 64px; }
+
+  /* day / night */
+  .mode { margin-top: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08); color: #fff; font: inherit; font-size: .85rem; cursor: pointer; backdrop-filter: blur(10px); opacity: 0; animation: fade 1s .9s forwards; }
+  .mode .mi { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 1rem; transition: transform .6s var(--ease), opacity .4s; }
+  .mode .sun-i { background: #ffd76a; color: #8a5a00; }
+  .mode .moon-i { background: #1b2350; color: #ffe9b8; display: none; }
+  .hero.day .mode .sun-i { display: none; }
+  .hero.day .mode .moon-i { display: grid; }
+  .scene stop, .scene rect, .scene circle, .scene path, .scene g { transition: stop-color 1.4s ease, fill 1.4s ease, stroke 1.4s ease, opacity 1.2s ease, transform .6s var(--ease); }
+  .hero { transition: background-color 1.4s ease; }
+  .sunbody { opacity: 0; }
+  .dayfade { opacity: 0; }
+  .hero.day .dayfade { opacity: 1; }
+  .hero.day rect.window { fill: url(#glassDay); }
+  .hero.day .pool-water { fill: url(#poolDay); }
+  .sunbody .rays { transform-box: fill-box; transform-origin: center; animation: spin 40s linear infinite; }
+  .hero.day { background-color: #1c6dd0; }
+  .hero.day .c-base { fill: #8a7a66; } .hero.day .c-wall { fill: #f3ede4; } .hero.day .c-wall2 { fill: #efe7dc; } .hero.day .c-roof { fill: #d9c8b0; } .hero.day .c-door { fill: #6b5442; }
+  .hero.day .frond { fill: #3f8f5a; } .hero.day .trunk { stroke: #8a6a45; }
+  .hero.day .moonbody, .hero.day #stars, .hero.day #lanterns, .hero.day #fireflies, .hero.day .lampglow { opacity: 0; }
+  .hero.day .sunbody { opacity: 1; }
+  .hero.day .refl { fill: #fff; }
+  .hero.day h1, .hero.day .lead { text-shadow: 0 2px 24px rgba(10, 40, 90, .45); }
+  .hero.day .pill, .hero.day .btn.glass, .hero.day .mode { background: rgba(10, 40, 90, .25); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* illustrated gallery */
+  .ph .art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; transition: transform 1.2s var(--ease); }
+  .ph:hover .art { transform: scale(1.07); }
+  .ph::before { display: none; }
+  .ph .wv { animation: wave 4s ease-in-out infinite; }
+  .ph .glow { animation: flicker 3s ease-in-out infinite; }
+  .ph .bulbs circle { animation: twinkle 2.4s ease-in-out infinite; }
+  .ph .bulbs circle:nth-child(2n) { animation-delay: -1.2s; }
+  .ph .swing { transform-box: fill-box; transform-origin: 50% 0; animation: sway 3.5s ease-in-out infinite; }
+  @keyframes wave { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-10px); } }
+
+  /* availability calendar */
+  .avail { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; }
+  .cal, .cal-sum { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .cal-head b { font-family: Alexandria; font-size: 1.1rem; }
+  .nav-btn { width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: var(--sand); font-size: 1.4rem; cursor: pointer; line-height: 1; }
+  .nav-btn:hover { background: #fff4e3; }
+  .cal-days, .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+  .cal-days span { font-size: .75rem; color: var(--muted); }
+  .cday { aspect-ratio: 1; border-radius: 12px; border: 0; font: inherit; cursor: pointer; display: grid; place-items: center; align-content: center; gap: 0; background: #f2fbf9; color: var(--ink); transition: transform .2s, background .2s; line-height: 1.1; }
+  .cday small { font-size: .58rem; color: var(--muted); }
+  .cday:hover:not(:disabled) { transform: scale(1.07); }
+  .cday.wk { background: #fff4e3; }
+  .cday.busy { background: #f3f1f5; color: #c3c0cc; text-decoration: line-through; cursor: not-allowed; }
+  .cday.busy small { visibility: hidden; }
+  .cday.past { visibility: hidden; }
+  .cday.inrange { background: #fde9c8; }
+  .cday.edge { background: var(--night); color: #fff; }
+  .cday.edge small { color: var(--gold-2); }
+  .cday.blank { visibility: hidden; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 14px; font-size: .78rem; color: var(--muted); }
+  .lg { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-inline-end: 6px; vertical-align: middle; }
+  .lg.free { background: #f2fbf9; border: 1px solid #c7eee8; } .lg.wk { background: #fff4e3; } .lg.busy { background: #f3f1f5; } .lg.sel { background: var(--night); }
+  .cal-sum { display: flex; flex-direction: column; gap: 12px; }
+  .cal-sum h3 { font-size: 1.15rem; }
+  .row2 { display: flex; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px dashed var(--line); font-size: .92rem; }
+  .row2 span { color: var(--muted); }
+  .total { display: flex; justify-content: space-between; align-items: center; background: var(--night); color: #fff; border-radius: 18px; padding: 16px 18px; margin-top: 6px; }
+  .total strong { font-family: Alexandria; font-size: 1.5rem; color: var(--gold-2); }
+  .cal-sum .btn { width: 100%; }
+  .hint { font-size: .75rem; color: var(--muted); text-align: center; }
+
+  /* FAQ */
+  .faq-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: start; }
+  .faq-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin: 10px 0; }
+  .faq-sub { color: var(--muted); }
+  .faq { display: grid; gap: 10px; }
+  .faq details { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 4px 20px; transition: box-shadow .3s; }
+  .faq details[open] { box-shadow: 0 16px 40px rgba(15,20,48,.07); }
+  .faq summary { list-style: none; cursor: pointer; padding: 14px 0; font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--sand); display: grid; place-items: center; font-size: 1.2rem; transition: transform .35s var(--ease), background .3s; }
+  .faq details[open] summary::after { transform: rotate(45deg); background: var(--gold); }
+  .faq details p { color: var(--muted); padding-bottom: 16px; animation: fade .5s var(--ease); }
+
+  /* map */
+  .map { position: relative; border-radius: 32px; overflow: hidden; height: 380px; background: #e8e2d6; border: 1px solid var(--line); }
+  .map iframe { width: 100%; height: 100%; border: 0; filter: saturate(.9); }
+  .map-card { position: absolute; top: 20px; right: 20px; background: #fff; border-radius: 20px; padding: 18px 20px; display: grid; gap: 4px; box-shadow: 0 18px 40px rgba(15,20,48,.15); min-width: 220px; }
+  .map-card span { color: var(--muted); font-size: .9rem; margin-bottom: 8px; }
+  .map-card .btn { padding: 10px 18px; font-size: .88rem; }
+
   @media (max-width: 1100px) {
     .book { grid-template-columns: 1fr 1fr; }
     .book .fields { grid-column: 1 / -1; grid-row: 2; }
@@ -230,6 +324,16 @@
     .amen { grid-template-columns: 1fr 1fr; gap: 12px; }
     .am { padding: 20px 16px; }
     .stats { border-radius: 28px; }
+    .avail, .faq-wrap { grid-template-columns: 1fr; }
+    .faq-wrap { gap: 20px; }
+    .cal, .cal-sum { padding: 18px; }
+    .cal-days, .cal-grid { gap: 4px; }
+    .cday { border-radius: 10px; font-size: .9rem; }
+    .map { height: 320px; border-radius: 26px; }
+    .map-card { inset: auto 12px 12px 12px; min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px 10px 16px; }
+    .map-card span { display: none; }
+    .nav.scrolled { top: 0; }
+    .mode { margin-inline: auto; }
     .cta { border-radius: 30px; text-align: center; }
     .cta .btn { width: 100%; }
     .info div { text-align: right; }
@@ -248,10 +352,11 @@
 
 <div class="ribbon">✦ نموذج تجريبي أولي من <b>Sayid Studio</b> · الموقع النهائي يُصمم بهوية <b data-f="name">شاليه الواحة</b> وصوره وأسعاره</div>
 
-<nav class="nav">
+<div class="progress" id="progress"></div>
+<nav class="nav" id="nav">
   <div class="wrap">
     <a class="brand" href="#top"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg></span><span data-f="name">شاليه الواحة</span></a>
-    <div class="links"><a href="#amenities">المرافق</a><a href="#gallery">الصور</a><a href="#prices">الأسعار</a><a href="#visit">الموقع</a></div>
+    <div class="links"><a href="#amenities">المرافق</a><a href="#gallery">الصور</a><a href="#availability">التوفر</a><a href="#prices">الأسعار</a><a href="#faq">الأسئلة</a></div>
     <a class="btn gold" href="#book">احجز الآن</a>
   </div>
 </nav>
@@ -260,48 +365,60 @@
   <svg class="scene" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
     <defs>
       <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#070a1c"/><stop offset=".45" stop-color="#141a3a"/><stop offset=".72" stop-color="#3a2f5e"/><stop offset=".9" stop-color="#b8664f"/><stop offset="1" stop-color="#e59a62"/>
+        <stop class="sk1" offset="0" stop-color="#070a1c"/><stop class="sk2" offset=".45" stop-color="#141a3a"/><stop class="sk3" offset=".72" stop-color="#3a2f5e"/><stop class="sk4" offset=".9" stop-color="#b8664f"/><stop class="sk5" offset="1" stop-color="#e59a62"/>
       </linearGradient>
       <radialGradient id="moonGlow"><stop offset="0" stop-color="#ffe9b8" stop-opacity=".55"/><stop offset="1" stop-color="#ffe9b8" stop-opacity="0"/></radialGradient>
-      <linearGradient id="dune1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4b3260"/><stop offset="1" stop-color="#2a1f45"/></linearGradient>
-      <linearGradient id="dune2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2148"/><stop offset="1" stop-color="#181434"/></linearGradient>
-      <linearGradient id="dune3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17132e"/><stop offset="1" stop-color="#0b0a1c"/></linearGradient>
-      <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd89a"/><stop offset="1" stop-color="#f08a4b"/></linearGradient>
-      <linearGradient id="pool" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2bd4c4"/><stop offset="1" stop-color="#0d6f73"/></linearGradient>
+      <linearGradient id="dune1" x1="0" y1="0" x2="0" y2="1"><stop class="d1a" offset="0" stop-color="#4b3260"/><stop class="d1b" offset="1" stop-color="#2a1f45"/></linearGradient>
+      <linearGradient id="dune2" x1="0" y1="0" x2="0" y2="1"><stop class="d2a" offset="0" stop-color="#2c2148"/><stop class="d2b" offset="1" stop-color="#181434"/></linearGradient>
+      <linearGradient id="dune3" x1="0" y1="0" x2="0" y2="1"><stop class="d3a" offset="0" stop-color="#17132e"/><stop class="d3b" offset="1" stop-color="#0b0a1c"/></linearGradient>
+      <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop class="gl1" offset="0" stop-color="#ffd89a"/><stop class="gl2" offset="1" stop-color="#f08a4b"/></linearGradient>
+      <linearGradient id="pool" x1="0" y1="0" x2="0" y2="1"><stop class="pl1" offset="0" stop-color="#2bd4c4"/><stop class="pl2" offset="1" stop-color="#0d6f73"/></linearGradient>
       <radialGradient id="lamp"><stop offset="0" stop-color="#ffe2a8"/><stop offset=".45" stop-color="#ffb35c" stop-opacity=".8"/><stop offset="1" stop-color="#ff8a3d" stop-opacity="0"/></radialGradient>
+      <linearGradient id="skyDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c6dd0"/><stop offset=".45" stop-color="#3d8fe0"/><stop offset=".72" stop-color="#7fbcea"/><stop offset=".9" stop-color="#cfe6f2"/><stop offset="1" stop-color="#f4e2c4"/></linearGradient>
+      <linearGradient id="dune1d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9c48f"/><stop offset="1" stop-color="#d9a96b"/></linearGradient>
+      <linearGradient id="dune2d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcae73"/><stop offset="1" stop-color="#c8955a"/></linearGradient>
+      <linearGradient id="dune3d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c08a52"/><stop offset="1" stop-color="#a8743f"/></linearGradient>
+      <linearGradient id="glassDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8f0fb"/><stop offset="1" stop-color="#7fbde0"/></linearGradient>
+      <linearGradient id="poolDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ff0e4"/><stop offset="1" stop-color="#18a7b2"/></linearGradient>
+      <radialGradient id="sunGlow"><stop offset="0" stop-color="#fff2b0" stop-opacity=".9"/><stop offset="1" stop-color="#fff2b0" stop-opacity="0"/></radialGradient>
     </defs>
     <rect width="1440" height="900" fill="url(#sky)"/>
+    <rect class="dayfade" width="1440" height="900" fill="url(#skyDay)"/>
     <g id="stars" class="layer" data-depth="6"></g>
     <g class="layer" data-depth="10"><g id="moon">
-      <circle class="moon-glow" cx="260" cy="190" r="150" fill="url(#moonGlow)"/>
+      <g class="moonbody"><circle class="moon-glow" cx="260" cy="190" r="150" fill="url(#moonGlow)"/>
       <circle cx="260" cy="190" r="46" fill="#fff3d6"/>
-      <circle cx="280" cy="176" r="42" fill="#141a3a"/>
+      <circle cx="280" cy="176" r="42" fill="#141a3a"/></g>
+      <g class="sunbody"><circle cx="260" cy="190" r="170" fill="url(#sunGlow)"/><circle cx="260" cy="190" r="58" fill="#ffd76a"/>
+      <g class="rays" stroke="#ffe39a" stroke-width="6" stroke-linecap="round"><line x1="260" y1="100" x2="260" y2="76"/><line x1="260" y1="280" x2="260" y2="304"/><line x1="170" y1="190" x2="146" y2="190"/><line x1="350" y1="190" x2="374" y2="190"/><line x1="196" y1="126" x2="179" y2="109"/><line x1="324" y1="254" x2="341" y2="271"/><line x1="196" y1="254" x2="179" y2="271"/><line x1="324" y1="126" x2="341" y2="109"/></g></g>
     </g></g>
     <g id="lanterns"></g>
     <path class="layer" data-depth="14" d="M0 640 C 220 560 380 600 560 610 S 900 540 1100 580 S 1340 600 1440 570 V900 H0Z" fill="url(#dune1)"/>
+    <path class="layer dayfade" data-depth="14" d="M0 640 C 220 560 380 600 560 610 S 900 540 1100 580 S 1340 600 1440 570 V900 H0Z" fill="url(#dune1d)"/>
     <path class="layer" data-depth="22" d="M0 700 C 180 650 360 690 560 680 S 980 620 1180 660 S 1380 690 1440 670 V900 H0Z" fill="url(#dune2)"/>
+    <path class="layer dayfade" data-depth="22" d="M0 700 C 180 650 360 690 560 680 S 980 620 1180 660 S 1380 690 1440 670 V900 H0Z" fill="url(#dune2d)"/>
     <g class="layer" data-depth="30">
       <!-- chalet -->
       <g transform="translate(150 470)">
-        <rect x="-40" y="190" width="620" height="16" rx="4" fill="#0e0c22"/>
-        <rect x="0" y="40" width="540" height="150" rx="6" fill="#1d1a3c"/>
-        <rect x="-20" y="22" width="580" height="22" rx="6" fill="#2a2550"/>
-        <rect x="320" y="-28" width="240" height="70" rx="6" fill="#221e46"/>
-        <rect x="306" y="-44" width="268" height="18" rx="6" fill="#2f2a5a"/>
+        <rect class="c-base" x="-40" y="190" width="620" height="16" rx="4" fill="#0e0c22"/>
+        <rect class="c-wall" x="0" y="40" width="540" height="150" rx="6" fill="#1d1a3c"/>
+        <rect class="c-roof" x="-20" y="22" width="580" height="22" rx="6" fill="#2a2550"/>
+        <rect class="c-wall2" x="320" y="-28" width="240" height="70" rx="6" fill="#221e46"/>
+        <rect class="c-roof" x="306" y="-44" width="268" height="18" rx="6" fill="#2f2a5a"/>
         <rect class="window" x="24" y="62" width="120" height="110" rx="4" fill="url(#glass)"/>
         <rect class="window" x="158" y="62" width="120" height="110" rx="4" fill="url(#glass)"/>
         <rect class="window" x="340" y="-12" width="96" height="44" rx="3" fill="url(#glass)"/>
         <rect class="window" x="446" y="-12" width="96" height="44" rx="3" fill="url(#glass)"/>
-        <rect x="300" y="72" width="70" height="118" rx="4" fill="#120f2a"/>
+        <rect class="c-door" x="300" y="72" width="70" height="118" rx="4" fill="#120f2a"/>
         <rect class="window" x="388" y="62" width="130" height="110" rx="4" fill="url(#glass)" opacity=".9"/>
         <g stroke="#3a3468" stroke-width="3"><line x1="84" y1="62" x2="84" y2="172"/><line x1="218" y1="62" x2="218" y2="172"/><line x1="453" y1="62" x2="453" y2="172"/></g>
-        <circle cx="-10" cy="150" r="34" fill="url(#lamp)" class="window"/>
-        <circle cx="560" cy="150" r="34" fill="url(#lamp)" class="window"/>
+        <circle cx="-10" cy="150" r="34" fill="url(#lamp)" class="window lampglow"/>
+        <circle cx="560" cy="150" r="34" fill="url(#lamp)" class="window lampglow"/>
       </g>
       <!-- pool -->
       <g transform="translate(230 692)">
-        <rect x="0" y="0" width="460" height="74" rx="18" fill="#0e0c22"/>
-        <rect x="8" y="6" width="444" height="62" rx="14" fill="url(#pool)"/>
+        <rect class="c-base" x="0" y="0" width="460" height="74" rx="18" fill="#0e0c22"/>
+        <rect class="pool-water" x="8" y="6" width="444" height="62" rx="14" fill="url(#pool)"/>
         <rect class="refl" x="60" y="16" width="70" height="10" rx="5" fill="#ffd89a" opacity=".4"/>
         <rect class="refl" x="190" y="30" width="80" height="9" rx="5" fill="#ffd89a" opacity=".35" style="animation-delay:-1s"/>
         <rect class="refl" x="320" y="18" width="70" height="10" rx="5" fill="#ffd89a" opacity=".4" style="animation-delay:-2s"/>
@@ -315,8 +432,8 @@
     <!-- palms -->
     <g class="layer" data-depth="38">
       <g transform="translate(1060 560)"><g class="palm">
-        <path d="M30 330 C 26 240 18 160 40 60" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
-        <g fill="#0f2a2a">
+        <path d="M30 330 C 26 240 18 160 40 60" class="trunk" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <g class="frond" fill="#0f2a2a">
           <path d="M40 60 C 0 40 -60 50 -100 90 C -50 70 0 72 40 66Z"/>
           <path d="M40 60 C 80 30 150 40 190 80 C 140 64 90 64 40 66Z"/>
           <path d="M40 60 C 20 10 -20 -20 -70 -20 C -20 0 10 30 40 62Z"/>
@@ -325,8 +442,8 @@
         </g>
       </g></g>
       <g transform="translate(1200 620) scale(.75)"><g class="palm b">
-        <path d="M30 330 C 26 240 18 160 40 60" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
-        <g fill="#0c2424">
+        <path d="M30 330 C 26 240 18 160 40 60" class="trunk" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <g class="frond" fill="#0c2424">
           <path d="M40 60 C 0 40 -60 50 -100 90 C -50 70 0 72 40 66Z"/>
           <path d="M40 60 C 80 30 150 40 190 80 C 140 64 90 64 40 66Z"/>
           <path d="M40 60 C 20 10 -20 -20 -70 -20 C -20 0 10 30 40 62Z"/>
@@ -334,8 +451,8 @@
         </g>
       </g></g>
       <g transform="translate(70 600) scale(.85)"><g class="palm" style="animation-delay:-3s">
-        <path d="M30 330 C 26 240 18 160 40 60" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
-        <g fill="#0c2424">
+        <path d="M30 330 C 26 240 18 160 40 60" class="trunk" stroke="#0b0a1c" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <g class="frond" fill="#0c2424">
           <path d="M40 60 C 0 40 -60 50 -100 90 C -50 70 0 72 40 66Z"/>
           <path d="M40 60 C 80 30 150 40 190 80 C 140 64 90 64 40 66Z"/>
           <path d="M40 60 C 20 10 -20 -20 -70 -20 C -20 0 10 30 40 62Z"/>
@@ -344,6 +461,7 @@
       </g></g>
     </g>
     <path d="M0 820 C 300 790 600 810 900 800 S 1300 790 1440 805 V900 H0Z" fill="url(#dune3)"/>
+    <path class="dayfade" d="M0 820 C 300 790 600 810 900 800 S 1300 790 1440 805 V900 H0Z" fill="url(#dune3d)"/>
     <g id="fireflies"></g>
   </svg>
 
@@ -356,6 +474,7 @@
         <a class="btn gold" href="#book">تحقق من التوفر</a>
         <a class="btn glass" href="#gallery">شاهد الشاليه</a>
       </div>
+      <button class="mode" id="mode" type="button" aria-label="تبديل النهار والليل"><span class="mi sun-i">☀</span><span class="mi moon-i">☾</span><span class="mt">شاهد الشاليه نهاراً</span></button>
     </div>
 
   </div>
@@ -377,7 +496,7 @@
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
         أرسل طلب الحجز
       </a>
-      <div class="summary"><span>مدة الإقامة: <b id="nights">ليلة واحدة</b></span><span class="perk">بدون عمولات</span></div>
+      <div class="summary"><span>مدة الإقامة: <b id="nights">ليلة واحدة</b></span><span>التقديرية: <b id="est">650 ر.س</b></span></div>
     </div>
   </form>
 </div>
@@ -410,11 +529,34 @@
   <div class="wrap">
     <div class="head reveal"><div><span class="kicker">الصور</span><h2>لمحة من أجواء الشاليه</h2></div><p>في الموقع النهائي تظهر هنا صوركم الحقيقية بجودة عالية.</p></div>
     <div class="gallery">
-      <div class="ph a reveal"><span class="tag">صورة توضيحية</span><span>المسبح ليلاً</span></div>
-      <div class="ph b reveal"><span class="tag">صورة توضيحية</span><span>الجلسات الخارجية</span></div>
-      <div class="ph c reveal"><span class="tag">صورة توضيحية</span><span>المسبح نهاراً</span></div>
-      <div class="ph d reveal"><span class="tag">صورة توضيحية</span><span>المجلس الداخلي</span></div>
-      <div class="ph e reveal"><span class="tag">صورة توضيحية</span><span>الحديقة</span></div>
+      <div class="ph a reveal"><svg class="art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="ga1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1026"/><stop offset="1" stop-color="#3a2f5e"/></linearGradient><linearGradient id="ga2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2bd4c4"/><stop offset="1" stop-color="#0d6f73"/></linearGradient></defs><rect width="400" height="300" fill="url(#ga1)"/><g fill="#fff"><circle cx="40" cy="40" r="1.4"/><circle cx="120" cy="22" r="1"/><circle cx="210" cy="60" r="1.3"/><circle cx="330" cy="30" r="1"/><circle cx="370" cy="80" r="1.2"/></g><circle cx="300" cy="70" r="26" fill="#fff3d6"/><circle cx="312" cy="62" r="23" fill="#1a1f45"/><rect y="170" width="400" height="130" fill="#14112c"/><rect x="40" y="190" width="320" height="80" rx="18" fill="url(#ga2)"/><g stroke="#c9fffa" stroke-width="2" fill="none" opacity=".6" class="wv"><path d="M60 215 Q 140 207 220 215 T 340 215"/><path d="M70 240 Q 150 232 230 240 T 350 240"/></g><rect x="90" y="205" width="60" height="7" rx="3" fill="#ffd89a" opacity=".45"/><g fill="#2a2550"><rect x="20" y="150" width="70" height="10" rx="4"/><rect x="310" y="150" width="70" height="10" rx="4"/></g><circle cx="30" cy="140" r="10" fill="#ffcf86" class="glow"/><circle cx="370" cy="140" r="10" fill="#ffcf86" class="glow"/></svg><span class="tag">صورة توضيحية</span><span>المسبح ليلاً</span></div>
+      <div class="ph b reveal"><svg class="art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="gb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4b2a4a"/><stop offset="1" stop-color="#e0864a"/></linearGradient></defs><rect width="400" height="300" fill="url(#gb1)"/><path d="M0 40 Q 200 110 400 40" stroke="#2a1a24" stroke-width="2" fill="none"/><g class="bulbs" fill="#ffe2a8"><circle cx="20" cy="53" r="5"/><circle cx="60" cy="76" r="5"/><circle cx="100" cy="92" r="5"/><circle cx="140" cy="104" r="5"/><circle cx="180" cy="109" r="5"/><circle cx="220" cy="109" r="5"/><circle cx="260" cy="104" r="5"/><circle cx="300" cy="92" r="5"/><circle cx="340" cy="76" r="5"/><circle cx="380" cy="53" r="5"/></g><rect y="200" width="400" height="100" fill="#3b2230"/><rect x="40" y="190" width="320" height="40" rx="14" fill="#8a3b4a"/><g fill="#f4b860"><rect x="60" y="170" width="44" height="30" rx="8"/><rect x="130" y="170" width="44" height="30" rx="8"/><rect x="226" y="170" width="44" height="30" rx="8"/><rect x="296" y="170" width="44" height="30" rx="8"/></g><rect x="150" y="238" width="100" height="18" rx="6" fill="#c9852f"/><g fill="#fff4dc"><rect x="170" y="226" width="10" height="12" rx="2"/><rect x="190" y="226" width="10" height="12" rx="2"/><rect x="210" y="226" width="10" height="12" rx="2"/></g></svg><span class="tag">صورة توضيحية</span><span>الجلسات الخارجية</span></div>
+      <div class="ph c reveal"><svg class="art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="gc1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3d8fe0"/><stop offset="1" stop-color="#bfe3f5"/></linearGradient><linearGradient id="gc2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fe6dc"/><stop offset="1" stop-color="#1aa7b0"/></linearGradient></defs><rect width="400" height="300" fill="url(#gc1)"/><circle cx="320" cy="60" r="30" fill="#ffd76a" class="glow"/><rect y="170" width="400" height="130" fill="#efe2cc"/><rect x="30" y="190" width="300" height="80" rx="18" fill="url(#gc2)"/><g stroke="#fff" stroke-width="2.5" fill="none" opacity=".7" class="wv"><path d="M50 215 Q 120 207 190 215 T 310 215"/><path d="M60 242 Q 130 234 200 242 T 320 242"/></g><path d="M345 120 L 345 200" stroke="#7a5a3a" stroke-width="4"/><path d="M300 125 Q 345 80 390 125 Z" fill="#f45b69"/><path d="M300 125 Q 322 108 345 125 Z" fill="#fff" opacity=".5"/><g transform="translate(40 60)"><path d="M10 120 C 8 80 6 50 14 20" stroke="#8a6a45" stroke-width="7" fill="none"/><g fill="#3f8f5a"><path d="M14 20 C -10 10 -30 16 -46 32 C -24 24 -4 24 14 24Z"/><path d="M14 20 C 34 4 60 8 76 26 C 56 18 34 20 14 24Z"/><path d="M14 20 C 10 -4 0 -16 -18 -20 C 0 -8 8 4 14 22Z"/></g></g></svg><span class="tag">صورة توضيحية</span><span>المسبح نهاراً</span></div>
+      <div class="ph d reveal"><svg class="art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#2a2348"/><path d="M150 40 h100 v110 h-100Z M150 90 a50 50 0 0 1 100 0" fill="#3d3468"/><path d="M160 150 V 92 a40 40 0 0 1 80 0 V150Z" fill="#7fbcea" opacity=".55"/><rect y="230" width="400" height="70" fill="#1d1838"/><ellipse cx="200" cy="262" rx="150" ry="22" fill="#8a3b4a"/><rect x="60" y="180" width="280" height="52" rx="16" fill="#c9852f"/><rect x="70" y="160" width="260" height="30" rx="12" fill="#e0a45a"/><g fill="#f4dfe3"><rect x="90" y="168" width="36" height="22" rx="6"/><rect x="182" y="168" width="36" height="22" rx="6"/><rect x="274" y="168" width="36" height="22" rx="6"/></g><path d="M40 60 v120" stroke="#c9a26b" stroke-width="3"/><path d="M24 60 h32 l-6 -22 h-20Z" fill="#ffd89a" class="glow"/><path d="M360 60 v120" stroke="#c9a26b" stroke-width="3"/><path d="M344 60 h32 l-6 -22 h-20Z" fill="#ffd89a" class="glow"/></svg><span class="tag">صورة توضيحية</span><span>المجلس الداخلي</span></div>
+      <div class="ph e reveal"><svg class="art" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="ge1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd3f0"/><stop offset="1" stop-color="#e8f6ff"/></linearGradient></defs><rect width="400" height="300" fill="url(#ge1)"/><rect y="180" width="400" height="120" fill="#7cc47f"/><path d="M0 190 Q 100 170 200 186 T 400 180 V300 H0Z" fill="#5aa962"/><g><rect x="60" y="110" width="12" height="80" fill="#8a6a45"/><circle cx="66" cy="100" r="40" fill="#3f8f5a"/><circle cx="46" cy="116" r="26" fill="#4ea36a"/></g><g><rect x="320" y="120" width="12" height="70" fill="#8a6a45"/><circle cx="326" cy="110" r="34" fill="#3f8f5a"/></g><path d="M160 80 v100 M240 80 v100 M150 80 h100" stroke="#8a6a45" stroke-width="6"/><g class="swing"><path d="M180 80 v70 M220 80 v70" stroke="#5b4a3b" stroke-width="2.5"/><rect x="172" y="148" width="56" height="8" rx="3" fill="#c9852f"/></g><g fill="#f45b69"><circle cx="120" cy="230" r="6"/><circle cx="280" cy="240" r="6"/><circle cx="100" cy="255" r="5"/></g><g fill="#ffd76a"><circle cx="300" cy="225" r="5"/><circle cx="140" cy="248" r="5"/></g></svg><span class="tag">صورة توضيحية</span><span>الحديقة</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="availability" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><div><span class="kicker">التوفر</span><h2>اختر ليلتك من التقويم</h2></div><p>اضغط على يوم الوصول ثم يوم المغادرة، وتظهر لك التكلفة فوراً.</p></div>
+    <div class="avail reveal">
+      <div class="cal">
+        <div class="cal-head"><button type="button" class="nav-btn" id="calNext" aria-label="الشهر التالي">›</button><b id="calTitle"></b><button type="button" class="nav-btn" id="calPrev" aria-label="الشهر السابق">‹</button></div>
+        <div class="cal-days"><span>أحد</span><span>إثنين</span><span>ثلاثاء</span><span>أربعاء</span><span>خميس</span><span>جمعة</span><span>سبت</span></div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="legend"><span><i class="lg free"></i>متاح</span><span><i class="lg wk"></i>نهاية أسبوع</span><span><i class="lg busy"></i>محجوز</span><span><i class="lg sel"></i>اختيارك</span></div>
+      </div>
+      <div class="cal-sum">
+        <h3>ملخص الحجز</h3>
+        <div class="row2"><span>الوصول</span><b id="sumIn">اختر يوماً</b></div>
+        <div class="row2"><span>المغادرة</span><b id="sumOut">—</b></div>
+        <div class="row2"><span>عدد الليالي</span><b id="sumN">—</b></div>
+        <div class="total"><span>التكلفة التقديرية</span><strong id="sumT">—</strong></div>
+        <a class="btn wa" id="sumBtn" href="#" target="_blank" rel="noopener">أرسل الطلب عبر الواتساب</a>
+        <p class="hint">التقويم والأسعار توضيحية في النموذج، وتُربط بحجوزاتكم الفعلية في الموقع النهائي.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -451,6 +593,25 @@
       <div class="q reveal"><div class="stars">★★★★★</div><p>"تعامل راقي والحجز عن طريق الواتساب سهل وسريع."</p><small>ضيف دائم</small></div>
     </div>
     <p class="note">* آراء توضيحية في النموذج، وتُستبدل بتقييماتكم الحقيقية.</p>
+  </div>
+</section>
+
+<section id="faq" style="padding-top:0">
+  <div class="wrap faq-wrap">
+    <div class="reveal"><span class="kicker">الأسئلة الشائعة</span><h2 class="faq-title">كل ما تريد معرفته قبل الحجز</h2><p class="faq-sub">لم تجد إجابتك؟ راسلنا على الواتساب ونرد عليك فوراً.</p></div>
+    <div class="faq">
+      <details class="reveal" open><summary>ما هي أوقات الدخول والخروج؟</summary><p>الدخول من الساعة 4 عصراً، والخروج حتى الساعة 12 ظهراً من اليوم التالي. يمكن ترتيب دخول مبكر حسب التوفر.</p></details>
+      <details class="reveal"><summary>هل يلزم دفع عربون لتأكيد الحجز؟</summary><p>نعم، يتم تأكيد الحجز بعربون بسيط يُخصم من المبلغ الإجمالي، والباقي يُدفع عند الوصول.</p></details>
+      <details class="reveal"><summary>هل المسبح مدفأ في الشتاء؟</summary><p>نعم، المسبح مزود بنظام تدفئة ليناسب جميع الفصول.</p></details>
+      <details class="reveal"><summary>هل الشاليه مناسب للمناسبات؟</summary><p>بالتأكيد، نستقبل حفلات التخرج والتجمعات العائلية والمناسبات، ويمكن ترتيب الضيافة والتنسيق.</p></details>
+      <details class="reveal"><summary>ما هي سياسة الإلغاء؟</summary><p>يمكن الإلغاء أو تغيير الموعد قبل 48 ساعة من الوصول بدون أي رسوم.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="map" style="padding-top:0">
+  <div class="wrap">
+    <div class="map reveal"><iframe id="mapFrame" title="موقع الشاليه على الخريطة" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe><div class="map-card"><b data-f="name">شاليه الواحة</b><span data-f="city">المدينة</span><a class="btn gold" id="mapLink" href="#" target="_blank" rel="noopener">افتح في قوقل ماب</a></div></div>
   </div>
 </section>
 
@@ -501,6 +662,7 @@
   const today = new Date(); const tmr = new Date(Date.now() + 864e5);
   $('in').value = iso(today); $('in').min = iso(today);
   $('out').value = iso(tmr); $('out').min = iso(tmr);
+  const price = d => (d.getDay() === 4 || d.getDay() === 5) ? 950 : 650;   // Thu/Fri
   const fmt = s => new Date(s + 'T00:00').toLocaleDateString('ar-SA-u-ca-gregory', { weekday: 'long', day: 'numeric', month: 'long' });
   function update() {
     const a = new Date($('in').value), b = new Date($('out').value);
@@ -508,10 +670,13 @@
     $('out').min = iso(new Date(new Date($('in').value).getTime() + 864e5));
     const nights = Math.max(1, Math.round((new Date($('out').value) - new Date($('in').value)) / 864e5));
     $('nights').textContent = nights === 1 ? 'ليلة واحدة' : nights === 2 ? 'ليلتان' : `${nights} ليالٍ`;
+    let total = 0; for (let i = 0; i < nights; i++) total += price(new Date(new Date($('in').value + 'T00:00').getTime() + i * 864e5));
+    $('est').textContent = total.toLocaleString('en-US') + ' ر.س';
     $('bookBtn').href = waLink(`السلام عليكم، أرغب بحجز ${name}\nمن: ${fmt($('in').value)}\nإلى: ${fmt($('out').value)}\nعدد الليالي: ${nights}\nعدد الضيوف: ${$('guests').value}\nنوع الحجز: ${$('type').value}`);
   }
   ['in', 'out', 'guests', 'type'].forEach(id => $(id).addEventListener('change', update));
   update();
+  window.CH = { name, city, wa, waLink, price, fmt, iso, setStay: (a, b) => { $('in').value = a; $('out').value = b; update(); } };
 })();
 
 /* ---------- living night scene: stars, lanterns, fireflies, parallax ---------- */
@@ -578,6 +743,83 @@
     io.unobserve(e.target);
   }), { threshold: .15 });
   document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + 'ms'; io.observe(el); });
+})();
+</script>
+<script>
+/* ---------- nav, progress, day/night, calendar, map ---------- */
+(() => {
+  const nav = document.getElementById('nav'), bar = document.getElementById('progress');
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', scrollY > 40);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  const hero = document.querySelector('.hero'), mode = document.getElementById('mode');
+  mode.addEventListener('click', () => {
+    const day = hero.classList.toggle('day');
+    mode.querySelector('.mt').textContent = day ? 'شاهد الشاليه ليلاً' : 'شاهد الشاليه نهاراً';
+  });
+
+  /* availability calendar (illustrative bookings, deterministic per chalet) */
+  const { name, waLink, price, fmt, iso, setStay } = window.CH;
+  let seed = [...name].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+  const rand = () => (seed = (seed * 1103515245 + 12345) >>> 0) / 4294967296;
+  const key = d => iso(new Date(d.getTime() - d.getTimezoneOffset() * 6e4));
+  const busy = new Set();
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  for (let i = 1; i < 120; i++) { const d = new Date(today.getTime() + i * 864e5); if (rand() < (d.getDay() >= 4 ? .45 : .18)) busy.add(key(d)); }
+  const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  let view = new Date(today.getFullYear(), today.getMonth(), 1), a = null, b = null;
+  const grid = document.getElementById('calGrid');
+  function render() {
+    document.getElementById('calTitle').textContent = `${months[view.getMonth()]} ${view.getFullYear()}`;
+    const first = view.getDay(), days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    let html = '';
+    for (let i = 0; i < first; i++) html += '<span class="cday blank"></span>';
+    for (let d = 1; d <= days; d++) {
+      const dt = new Date(view.getFullYear(), view.getMonth(), d), k = key(dt);
+      const cls = ['cday'];
+      if (dt < today) cls.push('past'); else if (busy.has(k)) cls.push('busy');
+      if (dt.getDay() === 4 || dt.getDay() === 5) cls.push('wk');
+      if (a && k === a || b && k === b) cls.push('edge'); else if (a && b && k > a && k < b) cls.push('inrange');
+      html += `<button type="button" class="${cls.join(' ')}" data-k="${k}" ${cls.includes('busy') || cls.includes('past') ? 'disabled' : ''}>${d}<small>${price(dt)}</small></button>`;
+    }
+    grid.innerHTML = html;
+    document.getElementById('calPrev').disabled = view <= new Date(today.getFullYear(), today.getMonth(), 1);
+    summary();
+  }
+  function summary() {
+    const $ = id => document.getElementById(id);
+    $('sumIn').textContent = a ? fmt(a) : 'اختر يوماً';
+    $('sumOut').textContent = b ? fmt(b) : (a ? 'اختر يوم المغادرة' : '—');
+    if (a && b) {
+      const n = Math.round((new Date(b) - new Date(a)) / 864e5);
+      let t = 0; for (let i = 0; i < n; i++) t += price(new Date(new Date(a + 'T00:00').getTime() + i * 864e5));
+      $('sumN').textContent = n; $('sumT').textContent = t.toLocaleString('en-US') + ' ر.س';
+      $('sumBtn').href = waLink(`السلام عليكم، أرغب بحجز ${name}\nمن: ${fmt(a)}\nإلى: ${fmt(b)}\nعدد الليالي: ${n}\nالتكلفة التقديرية: ${t.toLocaleString('en-US')} ر.س`);
+      setStay(a, b);
+    } else { $('sumN').textContent = '—'; $('sumT').textContent = '—'; $('sumBtn').href = waLink(`السلام عليكم، أرغب بالاستفسار عن حجز ${name}`); }
+  }
+  grid.addEventListener('click', e => {
+    const k = e.target.closest('.cday:not(:disabled)')?.dataset.k; if (!k) return;
+    if (!a || b || k <= a) { a = k; b = null; }
+    else {
+      for (let d = new Date(a + 'T00:00'); key(d) < k; d = new Date(d.getTime() + 864e5)) if (busy.has(key(d)) && key(d) !== a) { a = k; b = null; render(); return; }
+      b = k;
+    }
+    render();
+  });
+  document.getElementById('calNext').onclick = () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); };
+  document.getElementById('calPrev').onclick = () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); };
+  render();
+
+  /* map: load only when near the viewport */
+  const q = encodeURIComponent(`${name} ${window.CH.city}`);
+  document.getElementById('mapLink').href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+  const frame = document.getElementById('mapFrame');
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { frame.src = `https://maps.google.com/maps?q=${q}&z=14&output=embed`; o.disconnect(); } }, { rootMargin: '400px' }).observe(frame);
 })();
 </script>
 </body>
